@@ -7,12 +7,12 @@ ACCESS_KEY=$(cat ./.access_key)
 JSON=$(curl -sS http://api.ipstack.com/${IP}?access_key=$ACCESS_KEY)
 
 continent_code=$(echo $JSON | jq .continent_code -r)
-continent_name=$(echo $JSON | jq .continent_name -r)
+continent_name=$(echo $JSON | jq .continent_name -r | sed "s#'#\\\'#g")
 country_code=$(echo $JSON | jq .country_code -r)
-country_name=$(echo $JSON | jq .country_name -r)
+country_name=$(echo $JSON | jq .country_name -r | sed "s#'#\\\'#g")
 region_code=$(echo $JSON | jq .region_code -r)
 region_name=$(echo $JSON | jq .region_name -r | sed "s#'#\\\'#g")
-city=$(echo $JSON | jq .city -r)
+city=$(echo $JSON | jq .city -r | sed "s#'#\\\'#g")
 
 zip=$(echo $JSON | jq .zip -r)
 

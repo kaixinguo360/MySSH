@@ -7,12 +7,16 @@ cd $(dirname $0)
 DATE=$(date '+%Y-%m-%d')
 LOG_PATH='../log/sshd-pw.log'
 ARCH_PATH="../archive"
-TMP_PATH="$ARCH_PATH/tmp"
+TMP_PATH="$LOG_PATH.tmp"
+
+if [ ! -f "$LOG_PATH" ];then
+    exit
+fi
 
 mkdir -p $ARCH_PATH
 mv $LOG_PATH $TMP_PATH
 
-awk -f to-mysql.awk -v table=passwords $TMP_PATH | mysql -utest -p1234567 myssh
+awk -f to-mysql.awk -v table=passwords $TMP_PATH | mysql --defaults-extra-file=mysql.conf myssh
 
 cat $TMP_PATH >> $ARCH_PATH/$DATE.log
 

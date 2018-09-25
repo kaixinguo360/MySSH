@@ -21,5 +21,5 @@ SQL="CREATE TABLE IF NOT EXISTS ips ( \
     geoname_id VARCHAR(16)\
     )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;"
 
-echo "$SQL" | mysql -utest -p1234567 myssh
-echo 'SELECT rhost FROM passwords WHERE rhost NOT IN (SELECT ip FROM ips) AND rhost!="" GROUP BY rhost' | mysql myssh -utest -p1234567 | awk -f update-ips.awk
+echo "$SQL" | mysql --defaults-extra-file=mysql.conf myssh
+echo 'SELECT rhost FROM passwords WHERE rhost NOT IN (SELECT ip FROM ips) AND rhost!="" GROUP BY rhost' | mysql --defaults-extra-file=mysql.conf myssh | awk '{system("./iplookup.sh "$0" ips | mysql --defaults-extra-file=mysql.conf myssh")}'

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd $(dirname $0)
+
 IP=$1
 TABLE=$2
 ACCESS_KEY=$(cat ./.access_key)

@@ -18,4 +18,6 @@ RUN make\
 RUN apk add --no-cache tzdata\
     && cp -r -f /usr/share/zoneinfo/Hongkong /etc/localtime
 
+COPY sshd_config /usr/local/etc/sshd_config
+
 CMD /usr/local/sbin/sshd -D

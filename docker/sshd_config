@@ -106,7 +106,7 @@ AuthorizedKeysFile	.ssh/authorized_keys
 #Banner none
 
 # override default of no subsystems
-Subsystem	sftp	/usr/libexec/sftp-server
+Subsystem	sftp	/usr/local/openssh/libexec/sftp-server
 
 # Example of overriding settings on a per-user basis
 #Match User anoncvs

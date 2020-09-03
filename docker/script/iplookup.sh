@@ -1,10 +1,14 @@
-#!/bin/bash
+#!/bin/sh
 
 cd $(dirname $0)
 
+[ -z "$IPSTACK_ACCESS_KEY" ] \
+    && echo "[ERROR] IPSTACK_ACCESS_KEY not set" >&2 \
+    && exit 1
+
 IP=$1
 TABLE=$2
-ACCESS_KEY=$(cat ./.access_key)
+ACCESS_KEY=$IPSTACK_ACCESS_KEY
 #JSON=$(curl -sS http://api.db-ip.com/v2/free/$IP)
 JSON=$(curl -sS http://api.ipstack.com/${IP}?access_key=$ACCESS_KEY)
 

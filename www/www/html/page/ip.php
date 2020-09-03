@@ -4,6 +4,7 @@ $result=$db->query("SELECT COUNT(*) AS attack, rhost, country_name, region_name,
     ($_GET["range"]=="china" ? " AND country_code='cn'" : "")
     ." GROUP BY rhost");
 
+$source = array();
 for ($i = 0; $i < $result -> num_rows; $i++) {
     $array = $result -> fetch_array();
     unset($item);

@@ -1,0 +1,51 @@
+version: "3.2"
+
+services:
+  
+  myssh:
+    image: docker.kaixinguo.site/myssh
+    env_file: ./config/docker.env
+    networks:
+      - internal_network
+    ports:
+      - "2222:22"
+
+  db:
+    image: mysql/mysql-server:5.7.31
+    env_file: ./config/docker.env
+    networks:
+      - internal_network
+    volumes:
+      - ./db:/var/lib/mysql
+      - ./sql:/docker-entrypoint-initdb.d/
+
+  php:
+    build: .
+    #image: docker.kaixinguo.site/myphp
+    networks:
+      - internal_network
+      - external_network
+    volumes:
+      - ./www:/var/www
+
+  nginx:
+    image: nginx
+    networks:
+      - internal_network
+      - external_network
+    ports:
+      - "8080:80"
+    depends_on:
+      - php
+    volumes:
+      - ./www:/var/www
+      - ./nginx:/etc/nginx/conf.d
+
+networks:
+  internal_network:
+  external_network:
+    external: true
+
+volumes:
+  www:
+  nginx:

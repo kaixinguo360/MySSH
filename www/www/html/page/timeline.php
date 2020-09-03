@@ -2,6 +2,7 @@
 
 $result=$db->query("SELECT COUNT(*) AS count, DATE_FORMAT(time, '%Y-%m-%d %H') AS time FROM passwords WHERE time > DATE_SUB(NOW(), INTERVAL 1 DAY) GROUP BY DATE_FORMAT(time, '%Y-%m-%d %H');");
 
+$source = array();
 for ($i = 0; $i < $result -> num_rows; $i++) {
     $array = $result -> fetch_array();
     unset($item);

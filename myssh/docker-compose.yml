@@ -2,6 +2,6 @@ version: "3.2"
 
 services:
   myssh:
-    image: docker.kaixinguo.site/myssh
+    image: docker.example.com/myssh
     ports:
       - "22:22"

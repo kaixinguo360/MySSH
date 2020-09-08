@@ -5,6 +5,10 @@ $result=$db->query("SELECT COUNT(*) AS attack, rhost, country_name, region_name,
     ." GROUP BY rhost");
 
 $source = array();
+if ($result -> num_rows == 0) {
+    $max = 0;
+    $source[0] = array();
+}
 for ($i = 0; $i < $result -> num_rows; $i++) {
     $array = $result -> fetch_array();
     unset($item);
@@ -13,7 +17,7 @@ for ($i = 0; $i < $result -> num_rows; $i++) {
     }
     $item['attack'] = $array['attack'];
     $item['rhost'] = $array['rhost'];
-    $item['country_name'] = $array['country_name'];
+    $item['country_name'] = htmlentities($array['country_name']);
     $item['region_name'] = htmlentities($array['region_name']);
     $item['city'] = htmlentities($array['city']);
     $item['latitude'] = $array['latitude'];

@@ -19,5 +19,5 @@ SQL="CREATE TABLE IF NOT EXISTS ips ( \
     geoname_id VARCHAR(16)\
     )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;"
 
-echo "$SQL" | mysql-cli.sh
-echo 'SELECT rhost FROM passwords WHERE rhost NOT IN (SELECT ip FROM ips) AND rhost!="" GROUP BY rhost' | mysql-cli.sh | awk '{system("./iplookup.sh "$0" ips | mysql-cli.sh")}'
+echo "$SQL" | ./mysql-cli.sh
+echo 'SELECT rhost FROM passwords WHERE rhost NOT IN (SELECT ip FROM ips) AND rhost!="" GROUP BY rhost' | ./mysql-cli.sh | awk '{system("./iplookup.sh "$0" ips | ./mysql-cli.sh")}'
